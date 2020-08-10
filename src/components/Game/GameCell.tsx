@@ -1,28 +1,8 @@
 import React from 'react';
-import {Board, BoardValue} from 'components/Game/GameBigBoard';
-
-interface GetLabelProps {
-  board: Board,
-  boardNumber: number,
-  cellNumber: number,
-}
+import {GetLabelProps, getLabel} from 'functions/GameUtils';
 
 interface Props extends GetLabelProps {
   handleClick: (boardNumber: number, cellNumber: number) => void,
-}
-
-type Label = 'X' | 'O' | '';
-
-const getLabel = ({board, boardNumber, cellNumber}: GetLabelProps): Label => {
-  const value = board[boardNumber][cellNumber];
-  switch(value) {
-    case BoardValue.X:
-      return 'X';
-    case BoardValue.O:
-      return 'O';
-    case BoardValue.Empty:
-      return '';
-  }
 }
 
 const GameCell = ({

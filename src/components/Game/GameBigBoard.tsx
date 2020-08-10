@@ -1,7 +1,7 @@
 import React from 'react';
 import GameBoardRow from 'components/Game/GameBoardRow';
 
-export const enum BoardValue {
+export enum BoardValue {
   X = 1,
   O = -1,
   Empty = 0,
