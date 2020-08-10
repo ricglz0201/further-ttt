@@ -1,5 +1,6 @@
 import React from 'react';
 import {Board} from 'components/Game/GameBigBoard';
+import GameCellRow from 'components/Game/GameCellRow';
 
 interface BoardClassNameProps {
   boardNumber: number,
@@ -26,15 +27,21 @@ function boardClassName({
 }
 
 const GameBoard = ({
-  board,
   boardNumber,
   currentBoard,
-  handleClick,
+  ...rest
 }: Props) => {
   const className = boardClassName({boardNumber, currentBoard});
   return (
     <div className={className}>
-      Rows
+        {[0, 3, 6].map(initialCellNumber => (
+          <GameCellRow
+            boardNumber={boardNumber}
+            currentBoard={currentBoard}
+            initialCellNumber={initialCellNumber}
+            {...rest}
+          />
+        ))}
     </div>
   );
 };
