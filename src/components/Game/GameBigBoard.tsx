@@ -1,4 +1,5 @@
 import React from 'react';
+import GameBoardRow from 'components/Game/GameBoardRow';
 
 export const enum BoardValue {
   X = 1,
@@ -13,9 +14,18 @@ interface Props {
   handleClick: (boardNumber: number, cellNumber: number) => void,
 }
 
-  const GameBigBoard = (_props: Props) => {
+  const GameBigBoard = (props: Props) => {
   return (
-    <div>Hola</div>
+    <div className="flex flex-row jcc">
+      <div className="w-75 w-sm-66 w-md-60 w-lg-50">
+        {[0, 3, 6].map(initialBoardNumber => (
+          <GameBoardRow
+            initialBoardNumber={initialBoardNumber}
+            {...props}
+          />
+        ))}
+      </div>
+    </div>
   );
 };
 
