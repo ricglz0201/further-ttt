@@ -1,4 +1,5 @@
 import {Board, BoardValue} from 'components/Game/GameBigBoard';
+import {Player} from 'hooks/Game'
 
 export interface BoardClassNameProps {
   boardNumber: number,
@@ -44,3 +45,28 @@ export function getLabel({
 }
 
 export const isOccupied = (value: BoardValue) => value !== BoardValue.Empty;
+
+export const changePlayer = (player: Player) => Player.X ? Player.O : Player.X
+
+export function newBoard() {
+  return [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ];
+}
+
+export function initialState() {
+  return {
+    boardGame: newBoard(),
+    currentPlayer: Player.X,
+    moveNumber: 0,
+    currentBoard: -1,
+  };
+}

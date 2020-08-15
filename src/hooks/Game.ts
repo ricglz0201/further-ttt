@@ -1,20 +1,50 @@
 import React from 'react';
 import {Board} from 'components/Game/GameBigBoard';
-import {isOccupied} from 'functions/GameUtils'
+import {changePlayer, initialState, isOccupied} from 'functions/GameUtils'
 
-interface Game {
+export enum Player {
+  X,
+  O,
+}
+
+interface UseCanClickProps {
   board: Board,
   currentBoard: number,
 }
 
-export function useCanClick({
-  board,
-  currentBoard
-}: Game) {
-  const canClick = React.useCallback((boardID, id) => {
+export function useCanClick({board,currentBoard}: UseCanClickProps) {
+  return React.useCallback((boardID, id) => {
     const currentValue = board[boardID][id];
     if (isOccupied(currentValue)) return false;
     return boardID === currentBoard || currentBoard === -1;
   }, [board, currentBoard]);
-  return canClick;
+}
+
+interface ChangeTurnProps extends UseCanClickProps {
+  moveNumber: number,
+}
+
+interface Game extends ChangeTurnProps {
+  currentPlayer: Player,
+}
+
+interface UsePVPGameProps {
+  game: Game,
+  setGame: (game: Game) => void,
+}
+
+export function usePVPMove({game, setGame}: UsePVPGameProps) {
+  const {currentPlayer} = game;
+  return React.useCallback((newProps: ChangeTurnProps) => {
+    setGame({
+      ...newProps,
+      currentPlayer: changePlayer(currentPlayer),
+    });
+  }, [currentPlayer, setGame]);
+}
+
+export function useNewGame({game, setGame}: UsePVPGameProps) {
+  return React.useCallback(() => {
+    setGame({...game, ...initialState()});
+  }, [setGame, game]);
 }
