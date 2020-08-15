@@ -42,3 +42,5 @@ export function getLabel({
       return '';
   }
 }
+
+export const isOccupied = (value: BoardValue) => value !== BoardValue.Empty;
