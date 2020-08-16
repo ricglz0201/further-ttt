@@ -1,7 +1,7 @@
 import React from 'react';
 import {GetLabelProps, getLabel} from 'functions/GameUtils';
 
-interface Props extends GetLabelProps {
+export interface Props extends GetLabelProps {
   handleClick: (boardNumber: number, cellNumber: number) => void,
 }
 
