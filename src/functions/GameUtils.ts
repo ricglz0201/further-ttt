@@ -43,7 +43,7 @@ export function getLabel({
 
 export const isOccupied = (value: BoardValue) => value !== BoardValue.Empty;
 
-export const changePlayer = (player: Player) => Player.X ? Player.O : Player.X
+export const changePlayer = (player: Player) => player === Player.X ? Player.O : Player.X
 
 export function newBoard(): Board {
   return [

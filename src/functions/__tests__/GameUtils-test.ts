@@ -3,8 +3,12 @@ import {
   GetLabelProps,
   boardClassName,
   getLabel,
+  initialState,
+  isOccupied,
+  changePlayer,
+  newBoard,
 } from 'functions/GameUtils';
-import { Board, BoardValue, BoardLabel, BoardRow } from 'types/Game';
+import { Board, BoardValue, BoardLabel, BoardRow, Player } from 'types/Game';
 
 describe('GameUtils', () => {
   describe('boardClassName', () => {
@@ -72,4 +76,32 @@ describe('GameUtils', () => {
       }
     );
   })
+
+  describe('isOccupied', () => {
+    test.each([BoardValue.X, BoardValue.O])('%s', (value: BoardValue) => {
+      expect(isOccupied(value)).toBe(true);
+    })
+
+    test('Empty', () => {
+      expect(isOccupied(BoardValue.Empty)).toBe(false);
+    })
+  })
+
+  describe('changePlayer', () => {
+    it('changes Player X to O', () => {
+      expect(changePlayer(Player.X)).toBe(Player.O);
+    });
+
+    it('changes Player O to X', () => {
+      expect(changePlayer(Player.O)).toBe(Player.X);
+    });
+  });
+
+  test('newBoard', () => {
+    expect(newBoard()).toMatchSnapshot();
+  });
+
+  test('initialState', () => {
+    expect(initialState()).toMatchSnapshot();
+  });
 });
