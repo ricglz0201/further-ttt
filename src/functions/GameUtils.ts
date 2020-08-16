@@ -1,4 +1,4 @@
-import { Board, BoardLabel, BoardValue, Player } from "types/Game";
+import { Board, BoardLabel, BoardValue, Game, Player } from "types/Game";
 
 export interface BoardClassNameProps {
   boardNumber: number,
@@ -45,7 +45,7 @@ export const isOccupied = (value: BoardValue) => value !== BoardValue.Empty;
 
 export const changePlayer = (player: Player) => Player.X ? Player.O : Player.X
 
-export function newBoard() {
+export function newBoard(): Board {
   return [
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -59,9 +59,9 @@ export function newBoard() {
   ];
 }
 
-export function initialState() {
+export function initialState(): Game {
   return {
-    boardGame: newBoard(),
+    board: newBoard(),
     currentPlayer: Player.X,
     moveNumber: 0,
     currentBoard: -1,
