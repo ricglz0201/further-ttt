@@ -1,9 +1,8 @@
 import React from 'react';
-/* import GameBigBoard from 'components/Game/GameBigBoard'; */
+import PVPGame from 'components/pages/PVPGame'
 
 function App() {
-  return <div>Hello World!</div>
-  ;
+  return <PVPGame />;
 }
 
 export default App;

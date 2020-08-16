@@ -17,12 +17,12 @@ export function boardClassName({
   boardNumber,
   currentBoard,
 }: BoardClassNameProps) {
-  let className = 'w-25';
+  let className = 'w-third flex flex-wrap ba bw1';
   const boardIsPlayable =
     boardNumber === currentBoard ||
     currentBoard === -1;
   if (!boardIsPlayable) {
-    className += 'bg-grey';
+    className = `${className} bg-gray`;
   }
   return className;
 }

@@ -20,6 +20,7 @@ const GameBoard = ({
         <GameCellRow
           boardNumber={boardNumber}
           currentBoard={currentBoard}
+          key={initialCellNumber}
           initialCellNumber={initialCellNumber}
           {...rest}
         />

@@ -7,7 +7,6 @@ import {
 } from 'functions/GameUtils'
 import {
   Board,
-  BoardValue,
   Game,
   MakeMoveProps,
   Player,
@@ -84,18 +83,20 @@ export function usePVPGame() {
   const newGame = usePVPNewGame({game, setGame});
   const makeMove = usePVPMove({game, setGame});
   const afterMove = useAfterMove({newGame, makeMove});
-  return React.useCallback((boardNumber: number, cellNumber: number) => {
-    if(canClick(boardNumber, cellNumber)) {
-      const newMoveNumber = moveNumber + 1;
-      board[boardNumber][cellNumber] = currentPlayer === Player.X ? 1 : -1;
-      const winner = lookForWinner(board[boardNumber]);
-      afterMove({
-        board,
-        boardNumber,
-        cellNumber,
-        moveNumber: newMoveNumber,
-        winner,
-      });
-    }
+  const handleClick = React.useCallback(
+    (boardNumber: number, cellNumber: number) => {
+      if(canClick(boardNumber, cellNumber)) {
+        const newMoveNumber = moveNumber + 1;
+        board[boardNumber][cellNumber] = currentPlayer === Player.X ? 1 : -1;
+        const winner = lookForWinner(board[boardNumber]);
+        afterMove({
+          board,
+          boardNumber,
+          cellNumber,
+          moveNumber: newMoveNumber,
+          winner,
+        });
+      }
   }, [afterMove, board, canClick, currentPlayer, moveNumber]);
+  return {game, handleClick};
 }

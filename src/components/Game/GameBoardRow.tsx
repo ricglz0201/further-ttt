@@ -15,6 +15,7 @@ const GameBoardRow = ({ initialBoardNumber, ...rest }: Props) => {
       {[0, 1, 2].map((index) => (
         <GameBoard
           boardNumber={initialBoardNumber + index}
+          key={index}
           {...rest}
         />
       ))}

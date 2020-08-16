@@ -22,7 +22,7 @@ const GameCell = ({
   }, [onClick])
   return (
     <div
-      className={`w-33 ${label}`}
+      className={`w-third b--black ba h2 tc ${label}`}
       onClick={onClick}
       onKeyDown={onKeyDown}
       role="button"

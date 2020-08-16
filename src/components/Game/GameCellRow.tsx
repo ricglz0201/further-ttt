@@ -13,12 +13,16 @@ interface Props {
 const GameCellRow = ({ initialCellNumber, ...rest }: Props) => {
   return (
     <>
-      {[0, 1, 2].map((index) => (
-        <GameCell
-          cellNumber={initialCellNumber + index}
-          {...rest}
-        />
-      ))}
+      {[0, 1, 2].map((index) => {
+        const cellNumber = initialCellNumber + index;
+        return (
+          <GameCell
+            cellNumber={cellNumber}
+            key={cellNumber}
+            {...rest}
+          />
+        );
+      })}
     </>
   );
 };
