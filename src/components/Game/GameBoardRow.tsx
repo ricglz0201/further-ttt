@@ -1,6 +1,6 @@
 import React from 'react';
-import {Board} from 'components/Game/GameBigBoard';
 import GameBoard from 'components/Game/GameBoard';
+import { Board } from 'types/Game';
 
 interface Props {
   board: Board,
@@ -9,7 +9,7 @@ interface Props {
   initialBoardNumber: number,
 }
 
-const GameBoardRow = ({initialBoardNumber, ...rest}: Props) => {
+const GameBoardRow = ({ initialBoardNumber, ...rest }: Props) => {
   return (
     <>
       {[0, 1, 2].map((index) => (

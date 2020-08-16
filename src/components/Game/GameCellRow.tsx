@@ -1,6 +1,6 @@
 import React from 'react';
-import {Board} from 'components/Game/GameBigBoard';
 import GameCell from 'components/Game/GameCell';
+import { Board } from 'types/Game';
 
 interface Props {
   board: Board,
@@ -10,7 +10,7 @@ interface Props {
   initialCellNumber: number,
 }
 
-const GameCellRow = ({initialCellNumber, ...rest}: Props) => {
+const GameCellRow = ({ initialCellNumber, ...rest }: Props) => {
   return (
     <>
       {[0, 1, 2].map((index) => (

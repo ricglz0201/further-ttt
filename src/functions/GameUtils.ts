@@ -1,5 +1,4 @@
-import {Board, BoardValue} from 'components/Game/GameBigBoard';
-import {Player} from 'hooks/Game'
+import { Board, BoardLabel, BoardValue, Player } from "types/Game";
 
 export interface BoardClassNameProps {
   boardNumber: number,
@@ -14,7 +13,7 @@ export function boardClassName({
   const boardIsPlayable =
     boardNumber === currentBoard ||
     currentBoard === -1;
-  if(!boardIsPlayable) {
+  if (!boardIsPlayable) {
     className += 'bg-grey';
   }
   return className;
@@ -26,15 +25,13 @@ export interface GetLabelProps {
   cellNumber: number,
 }
 
-export type BoardLabel = 'X' | 'O' | '';
-
 export function getLabel({
   board,
   boardNumber,
   cellNumber
 }: GetLabelProps): BoardLabel {
   const value = board[boardNumber][cellNumber];
-  switch(value) {
+  switch (value) {
     case BoardValue.X:
       return 'X';
     case BoardValue.O:

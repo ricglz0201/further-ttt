@@ -1,11 +1,10 @@
 import {
   BoardClassNameProps,
-  BoardLabel,
   GetLabelProps,
   boardClassName,
   getLabel,
 } from 'functions/GameUtils';
-import {Board, BoardValue} from 'components/Game/GameBigBoard';
+import { Board, BoardValue, BoardLabel, BoardRow } from 'types/Game';
 
 describe('GameUtils', () => {
   describe('boardClassName', () => {
@@ -44,7 +43,7 @@ describe('GameUtils', () => {
   })
 
   describe('getLabel', () => {
-    const rowOfzeros = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const rowOfzeros: BoardRow = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     const board: Board = [
       [...rowOfzeros],
       [...rowOfzeros],
@@ -68,7 +67,7 @@ describe('GameUtils', () => {
       'returns "X" when the boards value is "X"',
       (value: BoardValue, expectedResult: BoardLabel) => {
         board[boardNumber][cellNumber] = value;
-        const argument: GetLabelProps = {board, boardNumber, cellNumber};
+        const argument: GetLabelProps = { board, boardNumber, cellNumber };
         expect(getLabel(argument)).toBe(expectedResult);
       }
     );

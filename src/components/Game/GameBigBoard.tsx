@@ -1,12 +1,6 @@
 import React from 'react';
 import GameBoardRow from 'components/Game/GameBoardRow';
-
-export enum BoardValue {
-  X = 1,
-  O = -1,
-  Empty = 0,
-}
-export type Board = Array<Array<BoardValue>>;
+import { Board } from 'types/Game';
 
 interface Props {
   board: Board,
@@ -14,7 +8,7 @@ interface Props {
   handleClick: (boardNumber: number, cellNumber: number) => void,
 }
 
-  const GameBigBoard = (props: Props) => {
+const GameBigBoard = (props: Props) => {
   return (
     <div className="flex flex-row jcc">
       <div className="w-75 w-sm-66 w-md-60 w-lg-50">
