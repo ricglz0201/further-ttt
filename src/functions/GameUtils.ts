@@ -13,18 +13,20 @@ export interface BoardClassNameProps {
   currentBoard: number,
 }
 
-export function boardClassName({
-  boardNumber,
-  currentBoard,
-}: BoardClassNameProps) {
+export function boardClassName(props: BoardClassNameProps) {
   let className = 'w-third flex flex-wrap ba bw1';
-  const boardIsPlayable =
-    boardNumber === currentBoard ||
-    currentBoard === -1;
-  if (!boardIsPlayable) {
+  if (boardIsUmplayable(props)) {
     className = `${className} bg-gray`;
   }
   return className;
+}
+
+export function boardIsUmplayable({
+  boardNumber,
+  currentBoard
+}: BoardClassNameProps) {
+  return boardNumber !== currentBoard &&
+    currentBoard !== -1;
 }
 
 export interface GetLabelProps {

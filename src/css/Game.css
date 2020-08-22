@@ -1,7 +1,9 @@
-div.X {
+button {
+  background-color: transparent;
+}
+button.X {
   color: #e7040f;
 }
-
-div.O {
+button.O {
   color: #19a974;
 }
