@@ -12,11 +12,13 @@ describe('GameCell', () => {
     board: mockedBoard,
     boardNumber: 0,
     cellNumber: 0,
+    currentBoard: -1,
     handleClick: mockedHandleClick,
   }
   let component: React.ReactElement;
 
   beforeEach(() => {
+    jest.clearAllMocks();
     component = <GameCell {...props} />;
   })
 
@@ -26,33 +28,16 @@ describe('GameCell', () => {
 
   it('calls functions/hooks', () => {
     shallow(component);
-    const { handleClick, ...rest } = props;
+    const { handleClick, currentBoard, ...rest } = props;
     expect(getLabel).toHaveBeenCalled();
     expect(getLabel).toHaveBeenCalledWith(rest)
   });
 
-  describe('handleClick', () => {
+  test('onClick', () => {
     const {boardNumber, cellNumber} = props;
-
-    test('onClick', () => {
-      const gameCell = shallow(component);
-      gameCell.simulate('click');
-      expect(mockedHandleClick).toHaveBeenCalled();
-      expect(mockedHandleClick).toHaveBeenCalledWith(boardNumber, cellNumber);
-    });
-
-    describe('onKeyDown', () => {
-      it('does something when keyCode is 32', () => {
-        const gameCell = shallow(component);
-        gameCell.simulate('keydown', { keyCode: 32 });
-        expect(mockedHandleClick).toHaveBeenCalled();
-        expect(mockedHandleClick).toHaveBeenCalledWith(boardNumber, cellNumber);
-      });
-
-      it('does nothing when keyCode is not 32', () => {
-        const gameCell = shallow(component);
-        gameCell.simulate('keydown', { keyCode: 33 });
-      });
-    })
+    const gameCell = shallow(component);
+    gameCell.simulate('click');
+    expect(mockedHandleClick).toHaveBeenCalled();
+    expect(mockedHandleClick).toHaveBeenCalledWith(boardNumber, cellNumber);
   });
 })
