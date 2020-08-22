@@ -2,13 +2,21 @@ import {
   BoardClassNameProps,
   GetLabelProps,
   boardClassName,
+  changePlayer,
+  columnWin,
   getLabel,
   initialState,
   isOccupied,
-  changePlayer,
+  lookForWinner,
   newBoard,
 } from 'functions/GameUtils';
-import { Board, BoardValue, BoardLabel, BoardRow, Player } from 'types/Game';
+import {
+  Board,
+  BoardValue,
+  BoardLabel,
+  BoardRow,
+  Player,
+} from 'types/Game';
 
 describe('GameUtils', () => {
   describe('boardClassName', () => {
@@ -16,11 +24,11 @@ describe('GameUtils', () => {
       boardNumber: 2,
       currentBoard: -1,
     };
-    const backgroundClass = 'bg-grey'
+    const backgroundClass = 'bg-gray'
     let result: string;
 
     afterEach(() => {
-      const constantClass = 'w-25'
+      const constantClass = 'w-third flex flex-wrap ba bw1'
       expect(result).toEqual(expect.stringContaining(constantClass));
     });
 
@@ -103,5 +111,54 @@ describe('GameUtils', () => {
 
   test('initialState', () => {
     expect(initialState()).toMatchSnapshot();
+  });
+
+  describe('lookForWinner', () => {
+    type WinCases = Array<[number, number, number]>;
+    const columnWinCases: WinCases = [
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+    ];
+    const rowWinCases: WinCases = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+    ];
+    const diagonalWinCases: WinCases = [
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+    const generalBoard: BoardRow = [
+      BoardValue.Empty,
+      BoardValue.Empty,
+      BoardValue.Empty,
+      BoardValue.Empty,
+      BoardValue.Empty,
+      BoardValue.Empty,
+      BoardValue.Empty,
+      BoardValue.Empty,
+      BoardValue.Empty,
+    ];
+
+    const testCases: Array<[string, WinCases]> = [
+      ['column win', columnWinCases],
+      ['row win', rowWinCases],
+      ['diagonalWin win', diagonalWinCases],
+    ]
+
+    describe.each(testCases)('%s', (_case, winCases) => {
+      test.each(winCases)(
+        '[%i, %i, %i] leads to a winner',
+        (first, second, third) => {
+          const innerBoard = [...generalBoard] as BoardRow;
+          const expectedWinner = BoardValue.X;
+          innerBoard[first] = expectedWinner;
+          innerBoard[second] = expectedWinner;
+          innerBoard[third] = expectedWinner;
+          const winner = lookForWinner(innerBoard);
+          expect(winner).toBe(expectedWinner)
+        });
+    });
   });
 });

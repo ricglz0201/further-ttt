@@ -47,7 +47,7 @@ interface AfterMoveProps {
   boardNumber: number,
   cellNumber: number,
   moveNumber: number,
-  winner: Winner,
+  winner: Winner | null,
 }
 
 interface UseAfterMoveProps {
@@ -66,12 +66,12 @@ export function useAfterMove({
     moveNumber,
     winner,
   }: AfterMoveProps) => {
-    if(winner) {
+    if (winner) {
       newGame();
     } else if (moveNumber === 81) {
       newGame();
     } else {
-      makeMove({board, currentBoard: cellNumber, moveNumber});
+      makeMove({ board, currentBoard: cellNumber, moveNumber });
     }
   }, [newGame, makeMove]);
 }
@@ -80,12 +80,12 @@ export function usePVPGame() {
   const [game, setGame] = React.useState(initialState());
   const { board, currentPlayer, moveNumber } = game;
   const canClick = useCanClick(game);
-  const newGame = usePVPNewGame({game, setGame});
-  const makeMove = usePVPMove({game, setGame});
-  const afterMove = useAfterMove({newGame, makeMove});
+  const newGame = usePVPNewGame({ game, setGame });
+  const makeMove = usePVPMove({ game, setGame });
+  const afterMove = useAfterMove({ newGame, makeMove });
   const handleClick = React.useCallback(
     (boardNumber: number, cellNumber: number) => {
-      if(canClick(boardNumber, cellNumber)) {
+      if (canClick(boardNumber, cellNumber)) {
         const newMoveNumber = moveNumber + 1;
         board[boardNumber][cellNumber] = currentPlayer === Player.X ? 1 : -1;
         const winner = lookForWinner(board[boardNumber]);
@@ -97,6 +97,6 @@ export function usePVPGame() {
           winner,
         });
       }
-  }, [afterMove, board, canClick, currentPlayer, moveNumber]);
-  return {game, handleClick};
+    }, [afterMove, board, canClick, currentPlayer, moveNumber]);
+  return { game, handleClick };
 }

@@ -77,9 +77,13 @@ export function initialState(): Game {
 }
 
 export function generateHasAWin(board: BoardRow) {
-  return (first: number, second: number, third: number): Winner => {
+  return (
+    first: number,
+    second: number,
+    third: number
+  ): Winner | null => {
     const firstValue = board[first];
-    if(firstValue === BoardValue.Empty) {
+    if (firstValue === BoardValue.Empty) {
       return null;
     }
     const secondValue = board[second];
@@ -110,7 +114,7 @@ export const diagonalWin = (hasAWin: HasAWinFn) => (
   hasAWin(2, 4, 6)
 );
 
-export function lookForWinner(board: BoardRow): Winner {
+export function lookForWinner(board: BoardRow): Winner | null {
   const hasAWin = generateHasAWin(board);
   return columnWin(hasAWin) ??
     rowWin(hasAWin) ??

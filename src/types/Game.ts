@@ -43,7 +43,7 @@ export type Board = [
 
 export type BoardLabel = 'X' | 'O' | '';
 
-export type Winner = BoardValue.X | BoardValue.O | null;
+export type Winner = BoardValue.X | BoardValue.O;
 
 // Interfaces
 
