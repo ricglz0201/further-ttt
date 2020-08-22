@@ -30,4 +30,29 @@ describe('GameCell', () => {
     expect(getLabel).toHaveBeenCalled();
     expect(getLabel).toHaveBeenCalledWith(rest)
   });
+
+  describe('handleClick', () => {
+    const {boardNumber, cellNumber} = props;
+
+    test('onClick', () => {
+      const gameCell = shallow(component);
+      gameCell.simulate('click');
+      expect(mockedHandleClick).toHaveBeenCalled();
+      expect(mockedHandleClick).toHaveBeenCalledWith(boardNumber, cellNumber);
+    });
+
+    describe('onKeyDown', () => {
+      it('does something when keyCode is 32', () => {
+        const gameCell = shallow(component);
+        gameCell.simulate('keydown', { keyCode: 32 });
+        expect(mockedHandleClick).toHaveBeenCalled();
+        expect(mockedHandleClick).toHaveBeenCalledWith(boardNumber, cellNumber);
+      });
+
+      it('does nothing when keyCode is not 32', () => {
+        const gameCell = shallow(component);
+        gameCell.simulate('keydown', { keyCode: 33 });
+      });
+    })
+  });
 })
