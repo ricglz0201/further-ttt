@@ -16,6 +16,8 @@
     "enzyme-adapter-react-16": "^1.15.3",
     "jest-enzyme": "^7.1.2",
     "react": "^16.13.1",
+    "react-alert": "^7.0.2",
+    "react-alert-template-basic": "^1.0.0",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "react-test-renderer": "^16.13.1",
@@ -42,7 +44,9 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/react-alert": "^5.2.0"
+  },
   "jest": {
     "coveragePathIgnorePatterns": [
       "/types/",

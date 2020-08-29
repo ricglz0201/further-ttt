@@ -41,6 +41,10 @@ export function getLabel({
   cellNumber
 }: GetLabelProps): BoardLabel {
   const value = board[boardNumber][cellNumber];
+  return boardValueToBoardLabel(value);
+}
+
+export function boardValueToBoardLabel(value: BoardValue): BoardLabel {
   switch (value) {
     case BoardValue.X:
       return 'X';

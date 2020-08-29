@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  boardValueToBoardLabel,
   changePlayer,
   initialState,
   isOccupied,
@@ -13,6 +14,7 @@ import {
   Player,
   Winner
 } from 'types/Game';
+import {useAlert} from 'react-alert';
 
 export function useCanClick({ board, currentBoard }: Game) {
   return React.useCallback((boardID, id) => {
@@ -58,25 +60,35 @@ export function useScore() {
   return {changeScore, oWins, xWins};
 }
 
+export function useAlertWinner() {
+  const alert = useAlert();
+  return React.useCallback((winner: Winner) => {
+    const winnerLabel = boardValueToBoardLabel(winner);
+    alert.info(`Player ${winnerLabel} has won`);
+  }, [alert]);
+
+}
+
 interface AfterMoveProps {
   board: Board,
   boardNumber: number,
   cellNumber: number,
   moveNumber: number,
   winner: Winner | null,
-}
+};
 
 interface UseAfterMoveProps {
   changeScore: (winner: Winner) => void,
   newGame: () => void,
   makeMove: (props: MakeMoveProps) => void,
-}
+};
 
 export function usePVPAfterMove({
   changeScore,
   newGame,
   makeMove,
 }: UseAfterMoveProps) {
+  const alertWinner = useAlertWinner();
   return React.useCallback(({
     board,
     boardNumber,
@@ -85,6 +97,7 @@ export function usePVPAfterMove({
     winner,
   }: AfterMoveProps) => {
     if (winner) {
+      alertWinner(winner);
       changeScore(winner);
       newGame();
     } else if (moveNumber === 81) {
@@ -92,7 +105,7 @@ export function usePVPAfterMove({
     } else {
       makeMove({ board, currentBoard: cellNumber, moveNumber });
     }
-  }, [changeScore, makeMove, newGame]);
+  }, [alertWinner, changeScore, makeMove, newGame]);
 }
 
 export function usePVPGame() {
