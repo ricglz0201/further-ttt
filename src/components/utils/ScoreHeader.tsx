@@ -1,5 +1,6 @@
 import React from 'react';
 import { BoardLabel } from 'types/Game';
+import 'css/ScoreHeader.css';
 
 interface PlayerScoreProps {
   player: Exclude<BoardLabel, ''>,
