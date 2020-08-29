@@ -1,14 +1,15 @@
 import BigBoard from 'components/Game/GameBigBoard';
 import React from 'react';
 import ScoreHeader from 'components/utils/ScoreHeader';
-import {usePVPGame} from 'hooks/Game';
+import { usePVPGame } from 'hooks/Game';
 
 const PVPGame = () => {
-  const {game, handleClick, oWins, xWins} = usePVPGame();
-  const {board, currentBoard} = game;
+  const { game, handleClick, oWins, xWins } = usePVPGame();
+  const { board, currentBoard } = game;
   return (
     <>
       <ScoreHeader
+        title="Multi-player"
         oWins={oWins}
         xWins={xWins}
       />

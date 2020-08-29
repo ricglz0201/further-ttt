@@ -1,15 +1,34 @@
 import React from 'react';
+import { BoardLabel } from 'types/Game';
+
+interface PlayerScoreProps {
+  player: Exclude<BoardLabel, ''>,
+  wins: number,
+}
+
+const PlayerScore = ({ player, wins }: PlayerScoreProps) => {
+  return (
+    <div className={player}>
+      {player}'s score: {wins}
+    </div>
+  )
+}
 
 interface Props {
+  title: string,
   oWins: number,
   xWins: number,
 }
 
-const ScoreHeader = ({oWins, xWins}: Props) => {
+const ScoreHeader = ({ title, oWins, xWins }: Props) => {
   return (
-    <div className="flex justify-between">
-      <div>O Wins: {oWins}</div>
-      <div>X Wins: {xWins}</div>
+    <div className="ma4 ph5 pb2 bb">
+      <h1 className="tc">{title}</h1>
+      <h2 className="tc">Score</h2>
+      <div className="flex justify-between ph5">
+        <PlayerScore player="X" wins={xWins} />
+        <PlayerScore player="O" wins={oWins} />
+      </div>
     </div>
   );
 };
