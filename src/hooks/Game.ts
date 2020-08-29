@@ -7,6 +7,7 @@ import {
 } from 'functions/GameUtils'
 import {
   Board,
+  BoardValue,
   Game,
   MakeMoveProps,
   Player,
@@ -42,6 +43,21 @@ export function usePVPNewGame({ game, setGame }: UsePVPGameProps) {
   }, [setGame, game]);
 }
 
+const increaseScore = (prevValue: number) => prevValue + 1;
+
+export function useScore() {
+  const [oWins, setOWins] = React.useState(0);
+  const [xWins, setXWins] = React.useState(0);
+  const changeScore = React.useCallback((winner: Winner) => {
+    if(winner === BoardValue.X) {
+      setXWins(increaseScore);
+    } else {
+      setOWins(increaseScore);
+    }
+  }, []);
+  return {changeScore, oWins, xWins};
+}
+
 interface AfterMoveProps {
   board: Board,
   boardNumber: number,
@@ -51,13 +67,15 @@ interface AfterMoveProps {
 }
 
 interface UseAfterMoveProps {
+  changeScore: (winner: Winner) => void,
   newGame: () => void,
   makeMove: (props: MakeMoveProps) => void,
 }
 
-export function useAfterMove({
+export function usePVPAfterMove({
+  changeScore,
   newGame,
-  makeMove
+  makeMove,
 }: UseAfterMoveProps) {
   return React.useCallback(({
     board,
@@ -67,22 +85,24 @@ export function useAfterMove({
     winner,
   }: AfterMoveProps) => {
     if (winner) {
+      changeScore(winner);
       newGame();
     } else if (moveNumber === 81) {
       newGame();
     } else {
       makeMove({ board, currentBoard: cellNumber, moveNumber });
     }
-  }, [newGame, makeMove]);
+  }, [changeScore, makeMove, newGame]);
 }
 
 export function usePVPGame() {
   const [game, setGame] = React.useState(initialState());
   const { board, currentPlayer, moveNumber } = game;
+  const {changeScore, oWins, xWins} = useScore();
   const canClick = useCanClick(game);
   const newGame = usePVPNewGame({ game, setGame });
   const makeMove = usePVPMove({ game, setGame });
-  const afterMove = useAfterMove({ newGame, makeMove });
+  const afterMove = usePVPAfterMove({ changeScore, makeMove, newGame });
   const handleClick = React.useCallback(
     (boardNumber: number, cellNumber: number) => {
       if (canClick(boardNumber, cellNumber)) {
@@ -98,5 +118,5 @@ export function usePVPGame() {
         });
       }
     }, [afterMove, board, canClick, currentPlayer, moveNumber]);
-  return { game, handleClick };
+  return { game, handleClick, oWins, xWins };
 }

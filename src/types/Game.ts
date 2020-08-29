@@ -45,6 +45,8 @@ export type BoardLabel = 'X' | 'O' | '';
 
 export type Winner = BoardValue.X | BoardValue.O;
 
+export type MakeMoveProps = Omit<Game, 'currentPlayer'>;
+
 // Interfaces
 
 export interface Game {
@@ -53,5 +55,3 @@ export interface Game {
   currentPlayer: Player,
   moveNumber: number,
 };
-
-export type MakeMoveProps = Omit<Game, 'currentPlayer'>;
