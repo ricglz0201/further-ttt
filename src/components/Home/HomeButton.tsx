@@ -9,7 +9,12 @@ interface Props {
 function HomeButton({ text, url }: Props) {
   return (
     <li>
-      <Link className="link" to={url}>{text}</Link>
+      <Link
+        className="b--light-blue ba bg-animate black br3 f4 hover-bg-light-blue link pa3"
+        to={url}
+      >
+        {text}
+      </Link>
     </li>
   );
 }

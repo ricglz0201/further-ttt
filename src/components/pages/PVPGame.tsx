@@ -9,7 +9,7 @@ const PVPGame = () => {
   return (
     <>
       <ScoreHeader
-        title="Multi-player"
+        title="Multi-Player"
         oWins={oWins}
         xWins={xWins}
       />
